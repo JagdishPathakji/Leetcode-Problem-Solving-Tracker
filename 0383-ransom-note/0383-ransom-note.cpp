@@ -8,14 +8,12 @@ public:
             v[magazine[i]-'a']++;
         }   
 
-        vector<int> m(27,0);
-    
         for(int i=0; i<ransomNote.size(); i++) {
-            m[ransomNote[i]-'a']++;
+            v[ransomNote[i]-'a']--;
         }
 
         for(int i=0; i<27; i++) {
-            if(m[i] > v[i]) {
+            if(v[i] < 0) {
                 return false;
             }
         }
