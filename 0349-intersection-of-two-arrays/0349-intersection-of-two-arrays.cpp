@@ -2,8 +2,8 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         
-        vector<int> v1(1001,0);
-        vector<int> v2(1001,0);
+        vector<int> v1(1001);
+        vector<int> v2(1001);
 
         for(int i=0; i<nums1.size(); i++) {
             v1[nums1[i]]++;
