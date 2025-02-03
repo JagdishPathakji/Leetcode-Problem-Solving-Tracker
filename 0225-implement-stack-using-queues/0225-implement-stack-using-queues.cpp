@@ -1,31 +1,67 @@
 class MyStack {
 public:
-
-    stack<int> st;
+    queue<int>q1;
+    queue<int>q2;
     MyStack() {
         
     }
     
+    bool empty() {
+        return q1.empty()&&q2.empty();
+    }
+
     void push(int x) {
-        st.push(x);
+        // Base q1 q2 empty
+        if(empty())
+        q1.push(x);
+        // Jis queue mein element hga, usimein push hga
+        else if(q1.empty())
+        q2.push(x);
+        else
+        q1.push(x);
     }
     
     int pop() {
-        if(!st.empty()) {
-            int x = st.top();
-            st.pop();
-            return x;
+        if(empty())
+        return 0;
+        else if(q1.empty())
+        {
+            while(q2.size()>1)
+            {
+                q1.push(q2.front());
+                q2.pop();
+            }
+
+            int element = q2.front();
+            q2.pop();
+            return element;
         }
-       return -1;
+        else
+        {
+            while(q1.size()>1)
+            {
+                q2.push(q1.front());
+                q1.pop();
+            }
+
+            int element = q1.front();
+            q1.pop();
+            return element;
+        }
     }
     
     int top() {
-        return st.top();
+        // stack khhali ho
+        if(empty())
+        return 0;
+        else if(q1.empty())
+        {
+            return q2.back();
+        }
+        else
+        return q1.back();
     }
     
-    bool empty() {
-        return st.empty();
-    }
 };
 
 /**
