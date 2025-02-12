@@ -15,7 +15,9 @@ public:
         
         queue<TreeNode *> q;
         q.push(root);
-        vector<int> ans;
+        int ans = 0;
+        int index = 0;
+        int ansindex = 0;
 
         if(root == nullptr) 
         return {};
@@ -24,6 +26,7 @@ public:
             
             int sum = 0;
             int k = q.size();
+            index++;
 
             while(k--) {
 
@@ -40,16 +43,13 @@ public:
 
             }
 
-            ans.push_back(sum);
-        }
-
-        int max = 0;
-        for(int i=0; i<ans.size(); i++) {
-            if(ans[max] < ans[i]) {
-                max = i;
+            if(ans < sum) {
+                ans = sum;
+                ansindex = index;
             }
         }
 
-        return (max + 1);
+
+        return ansindex;
     }
 };
