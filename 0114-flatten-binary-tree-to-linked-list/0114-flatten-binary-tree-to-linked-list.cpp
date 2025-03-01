@@ -12,31 +12,24 @@
 class Solution {
 public:
 
-    void find(TreeNode *root, vector<TreeNode*> &v) {
-
-        if(!root)
-        return;
-
-        v.push_back(root);
-
-        find(root->left,v);
-
-        find(root->right,v);
-    }
 
     void flatten(TreeNode* root) {
         
-        if(!root)
-        return;
-        
-        vector<TreeNode*> v;
+        while(root) {
 
-        find(root,v);
+            if(root->left == nullptr) {
+                root = root->right;
+            }
+            else {
+                TreeNode *curr = root->left;
+                while(curr->right) 
+                curr = curr->right;
 
-        for(int i=0; i<v.size()-1; i++) {
-            v[i]->right = v[i+1];
-            v[i]->left = nullptr;
+                curr->right = root->right;
+                root->right = root->left;
+                root->left = nullptr;
+                root = root->right;
+            }
         }
-        
     }
 };
