@@ -17,14 +17,12 @@ class Box {
 public:   
 
     bool BST;
-    int size;
     int max;
     int min;
     int sum;
 
     Box() {
         BST = 1;
-        size = 0;
         min = INT_MAX;
         max = INT_MIN;
         sum = 0;
@@ -47,7 +45,6 @@ public:
 
         if(lefthead->BST and righthead->BST and root->val > lefthead->max and root->val < righthead->min) {
             Box *head = new Box();
-            head->size = 1 + lefthead->size + righthead->size;
             head->min = min(root->val,lefthead->min);
             head->max = max(root->val,righthead->max);
             head->sum = root->val + lefthead->sum + righthead->sum;
