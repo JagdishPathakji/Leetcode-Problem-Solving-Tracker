@@ -14,9 +14,7 @@ public:
             if(v[i] == 1) {
                 count = count + 1;
                 for(int j=2*i; j<n; j+=i) {
-                    if(j%i == 0) {
-                        v[j] = 0;
-                    }
+                    v[j] = 0;
                 }
             }
         }
