@@ -30,8 +30,9 @@ public:
 
             for(int i=0; i<adjlist[node].size(); i++) {
                 dependency[adjlist[node][i]][node] = 1;
+
                 for(int j=0; j<numCourses; j++) {
-                    if(dependency[node][j])
+                    if(dependency[node][j]) 
                     dependency[adjlist[node][i]][j] = 1;
                 }
 
