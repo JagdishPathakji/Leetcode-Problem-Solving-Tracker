@@ -29,11 +29,11 @@ public:
             q.pop();
 
             for(int i=0; i<adjlist[node].size(); i++) {
-                dependency[adjlist[node][i]][node] = 1;
+                dependency[node][adjlist[node][i]] = 1;
 
                 for(int j=0; j<numCourses; j++) {
-                    if(dependency[node][j]) 
-                    dependency[adjlist[node][i]][j] = 1;
+                    if(dependency[j][node]) 
+                    dependency[j][adjlist[node][i]] = 1;
                 }
 
                 indegree[adjlist[node][i]]--;
@@ -44,7 +44,7 @@ public:
 
         vector<bool> result(queries.size(),false);
         for(int i=0; i<queries.size(); i++) {
-            result[i] = dependency[queries[i][1]][queries[i][0]];
+            result[i] = dependency[queries[i][0]][queries[i][1]];
         }
 
         return result;
