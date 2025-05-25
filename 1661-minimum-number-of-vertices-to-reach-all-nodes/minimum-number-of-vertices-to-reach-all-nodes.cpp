@@ -4,7 +4,6 @@ public:
         
         vector<int> indegree(n);
         for(int i=0; i<edges.size(); i++) {
-            int u = edges[i][0];
             int v = edges[i][1];
             indegree[v]++;
         }
