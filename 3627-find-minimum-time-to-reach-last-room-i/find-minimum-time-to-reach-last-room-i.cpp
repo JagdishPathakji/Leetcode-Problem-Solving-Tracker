@@ -19,6 +19,9 @@ public:
 
             pq.pop();
 
+            if(i == rows-1 and j == cols-1)
+            return distance[i][j];
+
             if(explored[i][j])
             continue;
 
