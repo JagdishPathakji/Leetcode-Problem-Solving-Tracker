@@ -1,23 +1,20 @@
 class Solution {
 public:
 
-    int houserobber(vector<int> &nums, int i, vector<int> &dp) {
-
-        if(i >= nums.size()) return 0;
-
-        if(dp[i] != -1)
-        return dp[i];
-
-        int steal = nums[i] + houserobber(nums,i+2,dp);
-        int skip = houserobber(nums,i+1,dp);
-
-        return dp[i] = max(steal,skip);
-    }
-
     int rob(vector<int>& nums) {
-        
-        vector<int> dp(nums.size()+1,-1);
-        return houserobber(nums,0,dp);
 
-    }
+        int n = nums.size();
+        vector<int> dp(n+1);
+        // dp[i] = max stolen money still i th house
+        dp[0] = 0; // when i have robbed zero houses, then ofcourse the total money robbed till now is zero
+        dp[1] = nums[0]; // when i have robbed 1st house, maxm money i can rob is nums[0]
+
+        for(int i=2; i<=n; i++) {
+            int steal = nums[i-1] + dp[i-2];
+            int skip = dp[i-1];
+            dp[i] = max(steal,skip);
+        }
+
+        return dp[n];
+    } 
 };
