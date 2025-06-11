@@ -21,7 +21,7 @@ public:
     }
     */
 
-    void find(vector<int> nums, vector<vector<int>> &ans, int index) {
+    void find(vector<int> &nums, vector<vector<int>> &ans, int index) {
         
 
         if(index == nums.size()) {
@@ -32,6 +32,7 @@ public:
         for(int i=index; i<nums.size(); i++) {
             swap(nums[index],nums[i]);
             find(nums,ans,index+1);
+            swap(nums[index],nums[i]);
         }
     }
 
