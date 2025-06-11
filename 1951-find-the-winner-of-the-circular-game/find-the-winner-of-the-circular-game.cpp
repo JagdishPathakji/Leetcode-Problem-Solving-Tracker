@@ -22,6 +22,7 @@ public:
             }
             
             visited[i] = true;
+            i = (i + 1) % n;
             count++;
         }
 
