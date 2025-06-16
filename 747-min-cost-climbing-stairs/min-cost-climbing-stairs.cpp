@@ -16,7 +16,7 @@ public:
             third2 = cost[i] + min(first,second);
 
             first = second;
-            second = third1;
+            second = third2;
         }
         
         return min(third1,third2);
