@@ -16,9 +16,7 @@ public:
     int minCostClimbingStairs(vector<int>& cost) {
         
         vector<int> dp1(cost.size()+1,-1);
-        vector<int> dp2(cost.size()+1,-1);
-
-        return min(find(0,cost,dp1),find(1,cost,dp2));        
+        return min(find(0,cost,dp1),find(1,cost,dp1));        
 
     }
 };
