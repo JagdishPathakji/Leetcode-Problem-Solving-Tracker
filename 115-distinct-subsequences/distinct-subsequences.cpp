@@ -22,22 +22,17 @@ public:
         
         int n = s1.size();
         int m = s2.size();
-        vector<vector<unsigned long long int>> dp(n+1,vector<unsigned long long int>(m+1,0));
-
-        for(int i=0; i<=n; i++)
-        dp[i][0] = 1;
+        vector<unsigned long long int>dp(m+1,0);
+        dp[0] = 1;
 
         for(int i=1; i<=n; i++) {
-            for(int j=1; j<=m; j++) {
+            for(int j=m; j>=1; j--) {
                  if(s1[i-1] == s2[j-1]) {
-                    dp[i][j] = 1LL * dp[i-1][j-1] + 1LL* dp[i-1][j];
-                }
-                else {
-                    dp[i][j] = dp[i-1][j];
+                    dp[j] = dp[j-1] + dp[j];
                 }
             }
         }
 
-        return (int)dp[n][m];
+        return (int)dp[m];
     }
 };
