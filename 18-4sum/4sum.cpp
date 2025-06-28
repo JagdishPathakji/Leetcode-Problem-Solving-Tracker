@@ -10,6 +10,7 @@ public:
 
                 int k = j + 1;
                 int l = nums.size()-1;
+
                 while(k < l) {
 
                     long long int sum = 1LL * nums[i] + 1LL * nums[j] + 1LL * nums[k] + 1LL * nums[l];
