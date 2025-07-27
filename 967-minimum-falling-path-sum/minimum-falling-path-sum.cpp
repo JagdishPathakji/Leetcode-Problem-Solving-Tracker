@@ -23,7 +23,6 @@ public:
 
     int minFallingPathSum(vector<vector<int>>& matrix) {
         
-        int mini = INT_MAX;
         int n = matrix.size();
         int m = matrix[0].size();
 
