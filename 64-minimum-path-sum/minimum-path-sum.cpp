@@ -24,7 +24,6 @@ public:
         int m = grid[0].size();
 
         vector<vector<int>> dp(n,vector<int>(m,-1));
-        find(0,0,n,m,grid,dp);
-        return dp[0][0];
+        return find(0,0,n,m,grid,dp);
     }
 };
