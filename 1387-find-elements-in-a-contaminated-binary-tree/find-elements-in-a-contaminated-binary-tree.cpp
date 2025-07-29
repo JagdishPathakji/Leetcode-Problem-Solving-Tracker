@@ -12,10 +12,12 @@
 class FindElements {
 public:
     TreeNode *ans = nullptr;
+    set<int> s;
     TreeNode* recover(TreeNode *root) {
 
         if(!root) return nullptr;
 
+        s.insert(root->val);
         if(root->left) {
             root->left->val = root->val * 2 + 1;
             recover(root->left);
@@ -34,20 +36,9 @@ public:
         ans = recover(ans);
     }
     
-    bool found(TreeNode *ans, int target) {
-
-        if(ans == nullptr)
-        return false;
-
-        if(ans->val == target)
-        return true;
-
-        return found(ans->left,target) || found(ans->right,target);
-    }
-
     bool find(int target) {
 
-        return found(ans,target);    
+        return !(s.find(target) == s.end());    
     }
 };
 
