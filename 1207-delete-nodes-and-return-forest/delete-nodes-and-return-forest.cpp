@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    TreeNode* find(TreeNode *root, set<int> &s, vector<TreeNode*> &ans) {
+    TreeNode* find(TreeNode *root, unordered_set<int> &s, vector<TreeNode*> &ans) {
 
         if(!root) 
         return nullptr;
@@ -34,7 +34,7 @@ public:
 
     vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
         
-        set<int> s(to_delete.begin(),to_delete.end());
+        unordered_set<int> s(to_delete.begin(),to_delete.end());
         vector<TreeNode*> ans;
 
         find(root,s,ans);
