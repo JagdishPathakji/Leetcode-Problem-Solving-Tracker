@@ -32,7 +32,7 @@ public:
         int pos = find(inorder,preorder[index],start,end);
 
         root->left = MakeTree(preorder,inorder,start,pos-1,index+1); 
-        root->right = MakeTree(preorder,inorder,pos+1,end,index+(pos-start)+1);
+        root->right = MakeTree(preorder,inorder,pos+1,end,index+1+(pos-start));
 
         return root;
     }
