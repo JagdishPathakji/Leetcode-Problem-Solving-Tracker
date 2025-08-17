@@ -22,64 +22,34 @@ public:
             int child = descriptions[i][1];
             bool isleft = descriptions[i][2];
 
+            TreeNode *root;
+            TreeNode *bacha;
+
             if(mp.find(parent) == mp.end()) {
-                TreeNode *root = new TreeNode(parent);
+                root = new TreeNode(parent);
                 mp[parent] = root;
+            }
+            else {                
+                root = mp[parent];
+            }
 
-                if(mp.find(child) == mp.end()) {
-                    TreeNode *bacha = new TreeNode(child);
-                    mp[child] = bacha;
-
-                    children.insert(child);
-                    if(isleft) {
-                        root->left = bacha;
-                    }
-                    else {
-                        root->right = bacha;
-                    }
-                }
-                else {
-                    TreeNode *bacha = mp[child];
-
-                    children.insert(child);
-                    if(isleft) {
-                        root->left = bacha;
-                    }
-                    else {
-                        root->right = bacha;
-                    }
-                }
+            if(mp.find(child) == mp.end()) {
+                bacha = new TreeNode(child);
+                mp[child] = bacha;
             }
             else {
-                
-                TreeNode *root = mp[parent];
+                bacha = mp[child];
+            }
 
-                if(mp.find(child) == mp.end()) {
-                    TreeNode *bacha = new TreeNode(child);
-                    mp[child] = bacha;
+            children.insert(child);
 
-                    children.insert(child);
-                    if(isleft) {
-                        root->left = bacha;
-                    }
-                    else {
-                        root->right = bacha;
-                    }
-                }
-                else {
-                    TreeNode *bacha = mp[child];
-                    
-                    children.insert(child);
-                    if(isleft) {
-                        root->left = bacha;
-                    }
-                    else {
-                        root->right = bacha;
-                    }
-                }
+            if(isleft) {
+                root->left = bacha;
+            }
+            else {
+                root->right = bacha;
             }
         }
-
 
         // return parent who is not children
         for(int i=0; i<descriptions.size(); i++) {
