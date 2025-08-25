@@ -24,7 +24,8 @@ public:
             solve(root->left,false,true,currPath+1);
             solve(root->right,true,false,1);
         }
-        else {
+        
+        if(right) {
             solve(root->left,false,true,1);
             solve(root->right,true,false,currPath+1);
         }
@@ -33,8 +34,7 @@ public:
 
     int longestZigZag(TreeNode* root) {
         
-        solve(root,true,false,0);
-        solve(root,false,true,0);
+        solve(root,true,true,0);
 
         return longestPath;
     }
