@@ -1,21 +1,21 @@
 class Solution {
 public:
 
-    void DFS(int i, int j, vector<vector<bool>> &visited, vector<vector<char>> &grid) {
+    void DFS(int i, int j, vector<vector<char>> &grid) {
 
-        visited[i][j] = 1;
+        grid[i][j] = -1;
 
-        if(i+1 < visited.size() and !visited[i+1][j] and grid[i+1][j] == '1') 
-        DFS(i+1,j,visited,grid);
+        if(i+1 < grid.size() && grid[i+1][j] == '1') 
+        DFS(i+1,j,grid);
 
-        if(i-1 >= 0 and !visited[i-1][j] and grid[i-1][j] == '1')
-        DFS(i-1,j,visited,grid);
+        if(i-1 >= 0 and grid[i-1][j] == '1')
+        DFS(i-1,j,grid);
 
-        if(j+1 < grid[i].size() and !visited[i][j+1] and grid[i][j+1] == '1')
-        DFS(i,j+1,visited,grid);
+        if(j+1 < grid[i].size() and grid[i][j+1] == '1')
+        DFS(i,j+1,grid);
 
-        if(j-1 >= 0 and !visited[i][j-1] and grid[i][j-1] == '1')
-        DFS(i,j-1,visited,grid);
+        if(j-1 >= 0 and grid[i][j-1] == '1')
+        DFS(i,j-1,grid);
     }
 
     int numIslands(vector<vector<char>>& grid) {
@@ -75,12 +75,11 @@ public:
 
         int noOfIslands = 0;
 
-        vector<vector<bool>> visited(row,vector<bool>(col,false));
         for(int i=0; i<row; i++) {
             for(int j=0; j<col; j++) {
-                if(!visited[i][j] and grid[i][j] == '1') {
+                if(grid[i][j] == '1') {
                     noOfIslands++;
-                    DFS(i,j,visited,grid);
+                    DFS(i,j,grid);
                 }
             }
         }
