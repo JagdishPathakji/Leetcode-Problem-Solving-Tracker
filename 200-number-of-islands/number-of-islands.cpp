@@ -1,89 +1,38 @@
 class Solution {
 public:
 
-    void DFS(int i, int j, vector<vector<char>> &grid) {
+    int x[4] = {0,0,1,-1};
+    int y[4] = {1,-1,0,0};
 
-        grid[i][j] = -1;
+    void DFS(int i, int j, vector<vector<char>> &grid, vector<vector<bool>> &visited) {
 
-        if(i+1 < grid.size() && grid[i+1][j] == '1') 
-        DFS(i+1,j,grid);
+        visited[i][j] = true;
 
-        if(i-1 >= 0 and grid[i-1][j] == '1')
-        DFS(i-1,j,grid);
-
-        if(j+1 < grid[i].size() and grid[i][j+1] == '1')
-        DFS(i,j+1,grid);
-
-        if(j-1 >= 0 and grid[i][j-1] == '1')
-        DFS(i,j-1,grid);
+        for(int k=0; k<4; k++) {
+            if(i+x[k] < grid.size() && j+y[k] < grid[0].size()) {
+                if(!visited[i+x[k]][j+y[k]] && grid[i+x[k]][j+y[k]] == '1')
+                DFS(i+x[k],j+y[k],grid,visited);
+            }
+        }
     }
 
     int numIslands(vector<vector<char>>& grid) {
         
-        // int row = grid.size();
-        // int col = grid[0].size();
+        int n = grid.size();
+        int m = grid[0].size();
+       
+        vector<vector<bool>> visited(n, vector<bool>(m,false));
+        int count = 0;
 
-        // queue<pair<int,int>> q;
-        // vector<vector<bool>> visited(row, vector<bool>(col,false));
-
-        // int noOfIslands = 0;
-        // for(int i=0; i<grid.size(); i++) {
-        //     for(int j=0; j<grid[i].size(); j++) {
-        //         if(grid[i][j] == '1' and !visited[i][j]) {
-
-        //             noOfIslands++;
-        //             q.push({i,j});
-
-        //             while(!q.empty()) {
-
-        //                 auto node = q.front();
-        //                 q.pop();
-
-        //                 int i = node.first;
-        //                 int j = node.second;
-
-        //                 if(i+1 < grid.size() and !visited[i+1][j] and grid[i+1][j] == '1') {
-        //                     visited[i+1][j] = 1;
-        //                     q.push({i+1,j});
-        //                 }
-
-        //                 if(j+1 < grid[i].size() and !visited[i][j+1]  and grid[i][j+1] == '1') {
-        //                     visited[i][j+1] = 1;
-        //                     q.push({i,j+1});
-        //                 }
-
-        //                 if(i-1 >= 0 and !visited[i-1][j]  and grid[i-1][j] == '1') {
-        //                     visited[i-1][j] = 1;
-        //                     q.push({i-1,j});
-        //                 }
-
-        //                 if(j-1 >= 0 and !visited[i][j-1]  and grid[i][j-1] == '1') {
-        //                     visited[i][j-1] = 1;
-        //                     q.push({i,j-1});
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
-        // return noOfIslands;
-
-
-
-        int row = grid.size();
-        int col = grid[0].size();
-
-        int noOfIslands = 0;
-
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
-                if(grid[i][j] == '1') {
-                    noOfIslands++;
-                    DFS(i,j,grid);
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                if(!visited[i][j] && grid[i][j] == '1') {
+                    DFS(i,j,grid,visited);
+                    count++;
                 }
             }
         }
 
-        return noOfIslands;
+        return count;
     }
 };
