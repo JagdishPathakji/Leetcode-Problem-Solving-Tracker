@@ -18,11 +18,11 @@ public:
                 i++;
             }
             
-            st.insert(s[j]);
-            maxi = maxi > st.size() ? maxi : st.size();
-            j++;
+            st.insert(s[j]);//a
+            maxi = (maxi > st.size() ) ? maxi : st.size();
+            j++;//1
         }
 
-        return maxi;
+        return maxi;//1
     }
 };
