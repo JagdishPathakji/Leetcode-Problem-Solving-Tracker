@@ -5,16 +5,13 @@ public:
         int rows = matrix.size();
         int cols = matrix[0].size();
 
-        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
-        pq.push({matrix[0][0],{0,0}});
-        vector<vector<int>> visited(rows, vector<int> (cols,false));
+        vector<pair<int,pair<int,int>>> v;
+        for(int i=0; i<cols; i++) 
+        v.push_back({matrix[0][i],{0,i}});
 
-        int ans;
-        int i,j;
+        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq(v.begin(),v.end());
 
-        int x[4] = {0,0,1,-1};
-        int y[4] = {1,-1,0,0};
-
+        int ans,i,j;
         while(k--) {
             
             auto node = pq.top();
@@ -24,13 +21,8 @@ public:
             i = node.second.first;
             j = node.second.second;
 
-            visited[i][j] = true;
-
-            for(int k=0; k<4; k++) {
-                if(x[k]+i >= 0 && x[k]+i < rows && y[k]+j >= 0 && y[k]+j < cols && !visited[x[k]+i][y[k]+j]) {
-                    visited[x[k]+i][y[k]+j] = true;
-                    pq.push({matrix[x[k]+i][y[k]+j],{x[k]+i,y[k]+j}});
-                }
+            if(i+1 < rows) {
+                pq.push({matrix[i+1][j],{i+1,j}});
             }
         }
 
