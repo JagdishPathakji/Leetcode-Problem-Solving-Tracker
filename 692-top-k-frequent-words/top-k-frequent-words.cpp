@@ -2,12 +2,13 @@ class Solution {
 public:
 
     struct cmp {
+        // cmp(a,b) == true  → a has **lower priority** than b
+        // cmp(a,b) == false → a has **higher priority** than b    
         bool operator()(const pair<int,string> &a, const pair<int,string> &b) {
-            if(a.first != b.first) return a.first < b.first;   // max-heap by frequency
-            return a.second > b.second;                        // tie-break: smaller lex comes first
+            if(a.first != b.first) return a.first > b.first;   // max-heap by frequency
+            return a.second < b.second;                        // tie-break: smaller lex comes first
         }
     };
-
 
     vector<string> topKFrequent(vector<string>& words, int k) {
         
@@ -22,6 +23,9 @@ public:
 
         for(auto it = mp.begin(); it != mp.end(); it++) {
             pq.push({it->second,it->first});
+
+            if(pq.size() > k)
+            pq.pop();
         }
 
         while(k--) {
@@ -29,6 +33,7 @@ public:
             pq.pop();
         }
 
+        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
