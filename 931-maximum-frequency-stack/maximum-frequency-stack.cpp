@@ -1,18 +1,8 @@
 class FreqStack {
 public:
 
-    struct cmp {
-        
-        bool operator()(const pair<int,pair<int,int>> a, const pair<int,pair<int,int>> b) {
-            if(a.first != b.first)
-            return a.first < b.first;
-
-            return a.second.first < b.second.first;
-        }
-    };
-
     unordered_map<int,int> mp;
-    priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, cmp> pq;
+    priority_queue<pair<int,pair<int,int>>> pq;
     int timer = 0;
 
     FreqStack() {
