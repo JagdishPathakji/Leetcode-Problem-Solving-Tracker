@@ -1,8 +1,19 @@
 class FreqStack {
 public:
 
+    struct cmp {
+        
+        bool operator()(const pair<int,pair<int,int>> a, const pair<int,pair<int,int>> b) {
+            if(a.first != b.first)
+            return a.first < b.first;
+
+            return a.second.first < b.second.first;
+        }
+    };
+
     unordered_map<int,int> mp;
-    stack<int> st;
+    priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, cmp> pq;
+    int timer = 0;
 
     FreqStack() {
         
@@ -10,35 +21,14 @@ public:
     
     void push(int val) {
         mp[val]++;
-        st.push(val);
+        timer++;
+        pq.push({mp[val],{timer,val}});
     }
     
     int pop() {
-        
-        vector<int> v;
-
-        int maxFreq = INT_MIN;
-        for(auto it = mp.begin(); it != mp.end(); it++) {
-            if(maxFreq < it->second) {
-                maxFreq = it->second;
-            }
-        }
-
-        while(mp[st.top()] != maxFreq) {
-            v.push_back(st.top());
-            st.pop();
-        }
-
-        int element = st.top();
+        int element = pq.top().second.second;
         mp[element]--;
-        st.pop();
-
-        int j = v.size()-1;
-        while(j >= 0) {
-            st.push(v[j]);
-            j--;
-        }
-
+        pq.pop();
         return element;
     }
 };
