@@ -28,7 +28,7 @@ public:
         // return real;
 
 
-        // O(n) time and O(n) space
+        // O(n) ~ time and O(n) ~ space
         unordered_map<int,bool> mp;
 
         for(int i=0; i<nums.size(); i++) 
