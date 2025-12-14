@@ -47,24 +47,43 @@ public:
 
 
 
-        // Solution - 2 
-        vector<int> prefixMul(nums.size());
-        vector<int> suffixMul(nums.size());
+        // Solution - 2 (O(n) - TC and O(n) - SC)
+        // vector<int> prefixMul(nums.size());
+        // vector<int> suffixMul(nums.size());
 
-        prefixMul[0] = 1;
+        // prefixMul[0] = 1;
+        // for(int i=1; i<nums.size(); i++) {
+        //     prefixMul[i] = prefixMul[i-1] * nums[i-1];
+        // }
+
+        // suffixMul[nums.size()-1] = 1;
+        // for(int i=nums.size()-2; i>=0; i--) {
+        //     suffixMul[i] = suffixMul[i+1] * nums[i+1];
+        // }
+
+        // for(int i=0; i<nums.size(); i++) {
+        //     nums[i] = prefixMul[i] * suffixMul[i];
+        // }
+
+        // return nums;
+
+
+
+
+        // solution - 3 (O(n) - TC and O(1) - SC)
+        vector<int> ans(nums.size()); // dont consider this as O(n) space, we need to return this vector. 
+
+        ans[0] = 1;
         for(int i=1; i<nums.size(); i++) {
-            prefixMul[i] = prefixMul[i-1] * nums[i-1];
+            ans[i] = ans[i-1] * nums[i-1];
         }
 
-        suffixMul[nums.size()-1] = 1;
+        int suffixMul = 1;
         for(int i=nums.size()-2; i>=0; i--) {
-            suffixMul[i] = suffixMul[i+1] * nums[i+1];
+            suffixMul = suffixMul * nums[i+1];
+            ans[i] = ans[i] * suffixMul;    
         }
 
-        for(int i=0; i<nums.size(); i++) {
-            nums[i] = prefixMul[i] * suffixMul[i];
-        }
-
-        return nums;
+        return ans;
     }
 };
