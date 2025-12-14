@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         
-        bool zeroFound = 0;
+        int zeroFound = 0;
         int mult = 0;
 
         for(int i=0; i<nums.size(); i++) {
