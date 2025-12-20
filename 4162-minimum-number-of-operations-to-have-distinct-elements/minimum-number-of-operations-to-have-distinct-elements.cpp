@@ -5,7 +5,7 @@ public:
         unordered_map<int,bool> mp;
         int idx = 0;
         for(int i=nums.size()-1; i>=0; i--) {
-            if(mp.find(nums[i]) == mp.end()) {
+            if(!mp.count(nums[i])) {
                  mp[nums[i]] = true;   
             }
             else {
