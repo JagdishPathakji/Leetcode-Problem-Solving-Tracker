@@ -35,15 +35,15 @@ public:
         }
 
         int x = q1.front();
-        q2.push(x);
         q1.pop();
-        
+        q2.push(x);
+
         while(!q2.empty()) {
             q1.push(q2.front());
             q2.pop();
         }
 
-        return x;        
+        return x;
     }
     
     bool empty() {
