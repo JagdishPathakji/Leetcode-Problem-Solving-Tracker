@@ -12,29 +12,28 @@
 class Solution {
 public:
 
-    int maxSum;
+    int find(TreeNode *root, int &ans) {
 
-    int solve(TreeNode *root) {
+        if(!root)
+        return 0;
 
-        if(root == nullptr) return 0;
+        int left = find(root->left,ans);
+        int right = find(root->right,ans);
 
-        int l = solve(root->left);
-        int r = solve(root->right);
+        int one = left + root->val;
+        int two = right + root->val;
+        int three = root->val + left + right;
+        int four = root->val;
 
-        int bothGaveGoodAns = l + r + root->val;
-        int onlyOneGaveGoodAns = max(l,r) + root->val;
-        int bothGaveBadAns = root->val;
-
-        maxSum = max({maxSum,bothGaveGoodAns,onlyOneGaveGoodAns,bothGaveBadAns});
-
-        return max(onlyOneGaveGoodAns,bothGaveBadAns); // not for bothGaveGoodAms
+        ans = max({ans,one,two,three,four});
+        return max({one,two,four});
     }
 
     int maxPathSum(TreeNode* root) {
         
-        maxSum = INT_MIN;
-        solve(root);
+        int ans = INT_MIN;
+        find(root,ans);
 
-        return maxSum;
+        return ans;
     }
 };
