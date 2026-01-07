@@ -11,39 +11,41 @@
  */
 class Solution {
 public:
-
-    const int MOD = 1e9 + 7;
-    int find(TreeNode *root) {
+    long long mod = 1e9 + 7;
+    void findSum(TreeNode *root, long long &sum) {
 
         if(!root)
-        return 0;
+        return;
 
-        return root->val + find(root->left) + find(root->right);
+        sum += root->val;
+        findSum(root->left,sum);
+        findSum(root->right,sum);
     }
 
-    long long int findmaxprod(TreeNode *root, long long int &ans, long long int &totalSum) {
+    long long findAns(TreeNode *root,long long &sum, long long &ans) {
 
         if(!root)
         return 0;
 
-        int leftNode = findmaxprod(root->left,ans,totalSum);
-        int rightNode = findmaxprod(root->right,ans,totalSum);
+        long long left = findAns(root->left,sum,ans);
+        long long right = findAns(root->right,sum,ans);
     
-        long long int total = root->val + leftNode + rightNode;
-        long long int prod = total * (totalSum - total);
+        long long subtreesum = left + right + root->val;
+        long long mult = ((subtreesum)*(sum-subtreesum));
+        ans = max(ans,mult);
 
-        ans = max(ans,prod);
-        return total;
+        return subtreesum;
     }
-
 
     int maxProduct(TreeNode* root) {
-        
-        long long int totalSum = find(root);
 
-        long long int ans = 0;
-        findmaxprod(root,ans,totalSum);
+        long long ans = 0;
+        long long sum = 0;
+        findSum(root,sum);
 
-        return ans%(MOD);
+        findAns(root,sum,ans);
+
+        return ans%mod;
     }
+
 };
