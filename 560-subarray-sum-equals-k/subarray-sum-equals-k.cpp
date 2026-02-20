@@ -3,23 +3,20 @@ public:
     int subarraySum(vector<int>& nums, int k) {
         
         int prefixSum = 0;
-        int total = 0;
         unordered_map<int,int> mp;
+        mp[0] = 1;
 
+        int count = 0;
         for(int i=0; i<nums.size(); i++) {
 
             prefixSum += nums[i];
 
-            if(prefixSum == k) 
-            total++;
-
-            int target = prefixSum - k;
-            if(mp[target] >= 1)
-            total += mp[target];
+            if(mp.find(prefixSum-k) != mp.end())
+            count+=mp[prefixSum-k];
 
             mp[prefixSum]++;
         }
 
-        return total;
+        return count;
     }
 };
