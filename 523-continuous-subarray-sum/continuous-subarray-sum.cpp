@@ -4,7 +4,7 @@ public:
         
         int prefixSum = 0;
         unordered_map<int,int> mp;
-        mp[0] = -1;
+        mp[0] = -1; // crazy logic😂
 
         for(int i=0; i<nums.size(); i++) {
             
