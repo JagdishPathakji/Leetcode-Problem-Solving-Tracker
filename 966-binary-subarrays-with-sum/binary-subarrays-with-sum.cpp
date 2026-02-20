@@ -4,23 +4,19 @@ public:
         
         int prefixSum = 0;
         unordered_map<int,int> mp;
+        mp[0] = 1;
 
-        int total = 0;
+        int count = 0;
         for(int i=0; i<nums.size(); i++) {
 
             prefixSum += nums[i];
 
-            if(prefixSum == goal) {
-                total++;
-            }
-
-            if(mp.find(prefixSum-goal) != mp.end()) {
-                total += mp[prefixSum-goal];
-            }
+            if(mp.find(prefixSum-goal) != mp.end())
+            count += mp[prefixSum-goal];
 
             mp[prefixSum]++;
         }
 
-        return total;
+        return count;
     }
 };
