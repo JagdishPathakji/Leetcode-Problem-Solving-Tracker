@@ -23,14 +23,12 @@ public:
             int reqtimer = peek.first;
             char task = peek.second;
             
-            if(timer >= reqtimer) {
-                mp[task]--;
-                if(mp[task] != 0) {
-                    pq.push({reqtimer+k+1,task});   
-                }
-            }
-            else {
-                pq.push({reqtimer,task});
+            if(timer < reqtimer)
+            timer = reqtimer;
+
+            mp[task]--;
+            if(mp[task] != 0) {
+                pq.push({reqtimer+k+1,task});   
             }
             
             timer++;
