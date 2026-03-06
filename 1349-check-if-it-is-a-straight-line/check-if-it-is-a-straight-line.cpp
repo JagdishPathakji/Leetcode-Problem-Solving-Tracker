@@ -2,7 +2,8 @@ class Solution {
 public:
     bool checkStraightLine(vector<vector<int>>& arr) {
         
-       
+       // All points lie on a straight line iff the slope between 
+       // any two points is the same.
        int x1 = arr[0][0], y1 = arr[0][1];
        int x2 = arr[1][0], y2 = arr[1][1];
 
