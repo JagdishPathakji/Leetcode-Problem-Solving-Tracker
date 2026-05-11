@@ -24,7 +24,7 @@ public:
                 one++;
             }
 
-            if(zero > one) {
+            if(zero >= one) {
                 for(int j=0; j<grid.size(); j++) {
                     grid[j][i] = !grid[j][i];
                 }
