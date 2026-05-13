@@ -16,12 +16,12 @@ public:
                 }
             }
             else if(bills[i] == 20) {
-                if(five > 0 && ten > 0) {
+                if(five > 2 && ten == 0) {
+                    five -= 3;
+                }
+                else if(five > 0 && ten > 0) {
                     five--;
                     ten--;
-                }
-                else if(five > 2 && ten == 0) {
-                    five -= 3;
                 }
                 else {
                     return false;
