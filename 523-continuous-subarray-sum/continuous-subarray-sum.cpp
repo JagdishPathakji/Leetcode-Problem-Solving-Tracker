@@ -1,22 +1,27 @@
 class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
+
+        if(nums.size() < 2)
+        return false;
         
-        int prefixSum = 0;
         unordered_map<int,int> mp;
-        mp[0] = -1; // crazy logic😂
+        int sum = 0;
 
         for(int i=0; i<nums.size(); i++) {
-            
-            prefixSum += nums[i];
 
-            if(mp.find(prefixSum%k) != mp.end()) {
-                if(i-mp[prefixSum%k] >= 2)
+            sum += nums[i];
+
+            if(sum % k == 0 && i > 0)
+            return true;
+
+            if(mp.find(sum%k) != mp.end()) {
+                if(i-mp[sum%k] > 1)
                 return true;
             }
-
-            if(mp.find(prefixSum%k) == mp.end())
-            mp[prefixSum%k] = i;
+            else {
+                mp[sum%k] = i; 
+            }
         }
 
         return false;
