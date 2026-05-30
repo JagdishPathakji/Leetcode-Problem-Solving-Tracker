@@ -2,50 +2,48 @@ class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 
+        vector<vector<int>> ans(mat.size(), vector<int>(mat[0].size()));
         queue<pair<int,int>> q;
+
         for(int i=0; i<mat.size(); i++) {
             for(int j=0; j<mat[i].size(); j++) {
-                if(mat[i][j] == 0)
-                q.push({i,j});
-                else
-                mat[i][j] = INT_MAX;
+                if(mat[i][j] == 0) {
+                    q.push({i,j});
+                    ans[i][j] = 0;
+                }
             }
         }
 
+        int rarr[] = {0,0,1,-1};
+        int carr[] = {1,-1,0,0};
+
+
+        int target = 1;
         while(!q.empty()) {
 
-            auto node = q.front();
-            q.pop();
+            int size = q.size();
+            while(size--) {
 
-            int i = node.first;
-            int j = node.second;
+                auto node = q.front();
+                q.pop();
+                int r = node.first;
+                int c = node.second;
 
-            if(i-1 >= 0 and mat[i-1][j] != 0) {
-                if(mat[i-1][j] > mat[i][j] + 1) {
-                    mat[i-1][j] = mat[i][j]+1;
-                    q.push({i-1,j});
+                for(int i=0; i<4; i++) {
+                    int newr = rarr[i] + r;
+                    int newc = carr[i] + c;
+
+                    if(newr >= 0 && newc >= 0 && newr < mat.size() && newc < mat[r].size() && mat[newr][newc] == 1) {
+                        mat[newr][newc] = 0;
+                        ans[newr][newc] = target;
+                        q.push({newr,newc});
+                    }
                 }
             }
-            if(i+1 < mat.size() and mat[i+1][j] != 0) {
-                if(mat[i+1][j] > mat[i][j] + 1) {
-                    mat[i+1][j] = mat[i][j] + 1;
-                    q.push({i+1,j});
-                }
-            }
-            if(j-1 >= 0 and mat[i][j-1] != 0) {
-                if(mat[i][j-1] > mat[i][j] + 1) {
-                    mat[i][j-1] = mat[i][j] + 1;
-                    q.push({i,j-1});
-                }
-            }
-            if(j+1 < mat[i].size() and mat[i][j+1] != 0) {
-                if(mat[i][j+1] > mat[i][j] + 1) {
-                    mat[i][j+1] = mat[i][j] + 1;
-                    q.push({i,j+1});
-                }
-            }
+
+            target++;
         }
 
-        return mat;
+        return ans;
     }
 };
