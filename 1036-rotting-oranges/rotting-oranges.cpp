@@ -1,19 +1,16 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
+        
+        queue<pair<int,int>> q;
+        int rarr[] = {0,0,1,-1};
+        int carr[] = {1,-1,0,0};
 
-        int row = grid.size();
-        int col = grid[0].size();
-
-        int timer = 0;
-        vector<vector<bool>> visited(row, vector<bool>(col,false));
-        queue<pair<int,pair<int,int>>> q;
-
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
+        int min = 0;
+        for(int i=0; i<grid.size(); i++) {
+            for(int j=0; j<grid[i].size(); j++) {
                 if(grid[i][j] == 2) {
-                    visited[i][j] = 1;
-                    q.push({0,{i,j}});
+                    q.push({i,j});                    
                 }
             }
         }
@@ -21,51 +18,38 @@ public:
         while(!q.empty()) {
 
             int size = q.size();
+            bool infected = false;
             while(size--) {
 
                 auto node = q.front();
+                int r = node.first;
+                int c = node.second;
                 q.pop();
 
-                int i = node.second.first;
-                int j = node.second.second;
+                for(int i=0; i<4; i++) {
+                    int ri = rarr[i] + r;
+                    int ci = carr[i] + c;
 
-                int time = node.first;
-                timer = max(time,timer);
-                visited[i][j] = 1;
-
-                if(i-1 >= 0 and !visited[i-1][j] and grid[i-1][j] == 1) {
-                    visited[i-1][j] = 1;
-                    grid[i-1][j] = 2;
-                    q.push({time+1,{i-1,j}});
+                    if(ri >= 0 && ri < grid.size() && ci >= 0 && ci < grid[r].size() && grid[ri][ci] == 1) {
+                        infected = true;
+                        grid[ri][ci] = 2;
+                        q.push({ri,ci});
+                    }
                 }
 
-                if(j-1 >= 0 and !visited[i][j-1] and grid[i][j-1] == 1) {
-                    visited[i][j-1] = 1;
-                    grid[i][j-1] = 2;
-                    q.push({time+1,{i,j-1}});
-                }
-
-                if(i+1 < grid.size() and !visited[i+1][j] and grid[i+1][j] == 1) {
-                    visited[i+1][j] = 1;
-                    grid[i+1][j] = 2;
-                    q.push({time+1,{i+1,j}});
-                }
-
-                if(j+1 < grid[i].size() and !visited[i][j+1] and grid[i][j+1] == 1) {
-                    visited[i][j+1] = 1;
-                    grid[i][j+1] = 2;
-                    q.push({time+1,{i,j+1}});
-                }
             }
+            
+            if(infected)
+            min++;
         }
 
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
+        for(int i=0; i<grid.size(); i++) {
+            for(int j=0; j<grid[i].size(); j++) {
                 if(grid[i][j] == 1)
                 return -1;
             }
         }
 
-        return timer;
+        return min;
     }
 };
