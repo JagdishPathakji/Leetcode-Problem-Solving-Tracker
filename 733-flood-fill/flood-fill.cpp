@@ -2,36 +2,33 @@ class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         
-        if(color == image[sr][sc])
+        if(image[sr][sc] == color)
         return image;
-        
-        int initialColor = image[sr][sc];
 
         queue<pair<int,int>> q;
+        int start = image[sr][sc];
+        image[sr][sc] = color;
         q.push({sr,sc});
+
+        int rarr[] = {0,0,1,-1};
+        int carr[] = {1,-1,0,0};
 
         while(!q.empty()) {
 
             auto node = q.front();
             q.pop();
+            int r = node.first;
+            int c = node.second;
 
-            int i = node.first;
-            int j = node.second;
+            for(int i=0; i<4; i++) {
+                int newr = rarr[i] + r;
+                int newc = carr[i] + c;
 
-            if(image[i][j] == initialColor)
-            image[i][j] = color;
-
-            if(i+1 < image.size() && image[i+1][j] == initialColor) 
-            q.push({i+1,j});
-
-            if(i-1 >= 0 and image[i-1][j] == initialColor)
-            q.push({i-1,j});
-
-            if(j+1 < image[i].size() and image[i][j+1] == initialColor)
-            q.push({i,j+1});
-
-            if(j-1 >= 0 and image[i][j-1] == initialColor)
-            q.push({i,j-1});
+                if(newr >=0 && newc >= 0 && newr < image.size() && newc < image[r].size() && image[newr][newc] == start) {
+                    image[newr][newc] = color;
+                    q.push({newr,newc});
+                }
+            }
         }
 
         return image;
