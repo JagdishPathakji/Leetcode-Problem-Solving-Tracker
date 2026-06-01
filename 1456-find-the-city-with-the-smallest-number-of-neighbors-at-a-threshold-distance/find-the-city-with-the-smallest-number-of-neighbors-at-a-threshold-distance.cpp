@@ -14,13 +14,7 @@ public:
 
             distance[u][v] = w;
             distance[v][u] = w;
-        }
-        
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<n; j++) {
-                if(i == j)
-                distance[i][j] = 0;
-            }
+            distance[u][u] = 0;
         }
 
         for(int k=0; k<n; k++) {
