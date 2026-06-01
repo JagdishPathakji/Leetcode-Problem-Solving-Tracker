@@ -37,14 +37,15 @@ public:
         if(root->right)
         childsum += root->right->val;
 
+        solve(root->left,mp,levelandsum,level+1);
+        solve(root->right,mp,levelandsum,level+1);
+    
         int sum = levelandsum[level] - childsum;
         if(root->left)
         root->left->val = sum;
         if(root->right)
         root->right->val = sum;
 
-        solve(root->left,mp,levelandsum,level+1);
-        solve(root->right,mp,levelandsum,level+1);
     }
 
     TreeNode* replaceValueInTree(TreeNode* root) {
